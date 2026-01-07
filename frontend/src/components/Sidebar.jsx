@@ -10,7 +10,7 @@ export default function Sidebar({
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h1>LLM Council</h1>
+        <h1>LLM COUNCIL (8010)</h1>
         <button className="new-conversation-btn" onClick={onNewConversation}>
           + New Conversation
         </button>
@@ -23,9 +23,8 @@ export default function Sidebar({
           conversations.map((conv) => (
             <div
               key={conv.id}
-              className={`conversation-item ${
-                conv.id === currentConversationId ? 'active' : ''
-              }`}
+              className={`conversation-item ${conv.id === currentConversationId ? 'active' : ''
+                }`}
               onClick={() => onSelectConversation(conv.id)}
             >
               <div className="conversation-title">

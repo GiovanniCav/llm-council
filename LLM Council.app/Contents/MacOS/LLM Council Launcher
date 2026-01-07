@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the directory where the script is located
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$(dirname "$(dirname "$(dirname "$DIR")")")"
+
+# Navigate to project root
+cd "$PROJECT_ROOT"
+
+# Open Terminal to show server logs and keep process alive
+osascript <<END
+tell application "Terminal"
+    do script "cd '' && ./run_portable.sh; exit"
+end tell
+END
+
+# Wait a moment for server to start, then open browser
+sleep 3
+open "http://localhost:8010"

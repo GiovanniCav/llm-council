@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Dict, Any
 import uuid
 import json
@@ -13,7 +13,7 @@ from . import logger
 from fastapi.responses import FileResponse, StreamingResponse
 
 from . import storage
-from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings, run_quality_gate
+from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
 
 app = FastAPI(title="LLM Council API")
 
@@ -51,29 +51,6 @@ class Conversation(BaseModel):
     created_at: str
     title: str
     messages: List[Dict[str, Any]]
-
-
-class GateRequest(BaseModel):
-    """Request for quality gate check."""
-    project: str
-    security_mode: str
-    user_prompt: str
-    draft_output: str
-    evidence: Dict[str, Any]
-
-
-class GateResponse(BaseModel):
-    """Response from quality gate check."""
-    gate_passed: bool
-    final_synthesis: str
-    issues_found: List[str] = []
-    required_fixes: List[str] = []
-    deliberation_history: Dict[str, Any] = Field(default_factory=dict)
-    consensus_scores: Dict[str, Any] = Field(default_factory=dict)
-    trace_id: str
-    log_ref: str
-    status: str = "success"
-    feedback: str = ""
 
 
 # Serve static files from the frontend build directory
@@ -246,49 +223,6 @@ async def send_message_stream(conversation_id: str, request: SendMessageRequest)
             "Connection": "keep-alive",
         }
     )
-
-
-@app.post("/api/gate", response_model=GateResponse)
-async def quality_gate(request: GateRequest):
-    """
-    Run the Quality Gate deliberation.
-    """
-    trace_id = str(uuid.uuid4())
-    try:
-        # Run the specialized gate deliberation
-        result = await run_quality_gate(
-            project=request.project,
-            security_mode=request.security_mode,
-            user_prompt=request.user_prompt,
-            draft_output=request.draft_output,
-            evidence=request.evidence
-        )
-
-        # Log the gate run
-        logger.log_gate_run(
-            project=request.project,
-            security_mode=request.security_mode,
-            gate_passed=result.get("gate_passed", False),
-            trace_id=trace_id
-        )
-
-        # Ensure all required fields for the stable contract are present
-        response_data = {
-            "gate_passed": result.get("gate_passed", False),
-            "final_synthesis": result.get("final_synthesis", ""),
-            "issues_found": result.get("issues_found", []),
-            "required_fixes": result.get("required_fixes", []),
-            "deliberation_history": result.get("deliberation_history", {}),
-            "consensus_scores": result.get("consensus_scores", {}),
-            "trace_id": trace_id,
-            "log_ref": trace_id,
-            "status": "success",
-            "feedback": result.get("feedback", "Draft reviewed by Council.")
-        }
-
-        return response_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Quality Gate failed: {str(e)}")
 
 
 if __name__ == "__main__":
