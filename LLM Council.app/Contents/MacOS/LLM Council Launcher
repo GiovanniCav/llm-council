@@ -7,13 +7,21 @@ PROJECT_ROOT="$(dirname "$(dirname "$(dirname "$DIR")")")"
 # Navigate to project root
 cd "$PROJECT_ROOT"
 
+# Check if server is already running on port 8010
+if lsof -ti:8010 > /dev/null 2>&1; then
+    # Server already running, just open browser
+    open "http://localhost:8010"
+    exit 0
+fi
+
 # Open Terminal to show server logs and keep process alive
 osascript <<END
 tell application "Terminal"
-    do script "cd '' && ./run_portable.sh; exit"
+    do script "cd '$PROJECT_ROOT' && ./run_portable.sh"
+    activate
 end tell
 END
 
-# Wait a moment for server to start, then open browser
-sleep 3
+# Wait for server to start, then open browser
+sleep 4
 open "http://localhost:8010"
