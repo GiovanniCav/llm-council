@@ -61,7 +61,7 @@ async def stage2_collect_rankings(
         for label, result in zip(labels, stage1_results)
     ])
 
-    ranking_prompt = f"""You are evaluating different responses to the following question:
+    ranking_prompt = f"""You are evaluating different responses to the following question using the Analysis of Competing Hypotheses (ACH) method:
 
 Question: {user_query}
 
@@ -69,9 +69,11 @@ Here are the responses from different models (anonymized):
 
 {responses_text}
 
-Your task:
-1. First, evaluate each response individually. For each response, explain what it does well and what it does poorly.
-2. Then, at the very end of your response, provide a final ranking.
+Your task (ACH Falsification):
+1. Treat each response as a COMPETING HYPOTHESIS about the best answer.
+2. For each response, identify what DISCONFIRMING evidence exists: what does it get wrong, what does it miss, what assumptions does it make that could be false?
+3. Focus on ELIMINATION, not confirmation. The goal is to identify which responses can be RULED OUT, not which one "feels" best.
+4. Then, at the very end, provide a final ranking based on which responses have the LEAST disconfirming evidence (not the most confirming evidence).
 
 IMPORTANT: Your final ranking MUST be formatted EXACTLY as follows:
 - Start with the line "FINAL RANKING:" (all caps, with colon)
@@ -81,16 +83,16 @@ IMPORTANT: Your final ranking MUST be formatted EXACTLY as follows:
 
 Example of the correct format for your ENTIRE response:
 
-Response A provides good detail on X but misses Y...
-Response B is accurate but lacks depth on Z...
-Response C offers the most comprehensive answer...
+Response A assumes X, but this is contradicted by Y. Key weakness: ...
+Response B avoids the error in A but introduces a new assumption about Z that is unsupported...
+Response C has the fewest falsifiable claims and addresses the core question most directly...
 
 FINAL RANKING:
 1. Response C
 2. Response A
 3. Response B
 
-Now provide your evaluation and ranking:"""
+Now provide your ACH falsification analysis and ranking:"""
 
     messages = [{"role": "user", "content": ranking_prompt}]
 

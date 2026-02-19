@@ -80,16 +80,17 @@ LLM Council is a 3-stage deliberation system where multiple LLMs collaboratively
 
 ## Key Design Decisions
 
-### Stage 2 Prompt Format
-The Stage 2 prompt is very specific to ensure parseable output:
+### Stage 2 Prompt Format (ACH Falsification)
+The Stage 2 prompt uses the Analysis of Competing Hypotheses (ACH) method from Richards Heuer's *Psychology of Intelligence Analysis*. Instead of asking models to rank responses by quality, we frame each response as a competing hypothesis and ask models to focus on **falsification**: what disconfirming evidence exists for each response.
 ```
-1. Evaluate each response individually first
-2. Provide "FINAL RANKING:" header
-3. Numbered list format: "1. Response C", "2. Response A", etc.
-4. No additional text after ranking section
+1. Treat each response as a COMPETING HYPOTHESIS
+2. Identify DISCONFIRMING evidence for each (errors, gaps, false assumptions)
+3. Focus on ELIMINATION, not confirmation
+4. Provide "FINAL RANKING:" based on least disconfirming evidence
+5. Numbered list format: "1. Response C", "2. Response A", etc.
 ```
 
-This strict format allows reliable parsing while still getting thoughtful evaluations.
+This ACH reframe shifts the cognitive approach from "which feels best?" to "which can we rule out?", producing more rigorous evaluations.
 
 ### De-anonymization Strategy
 - Models receive: "Response A", "Response B", etc.
