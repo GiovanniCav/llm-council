@@ -1,0 +1,11 @@
+{
+  "id": "79fa3157-6ef5-4e9e-844e-4a76d05c0f14",
+  "created_at": "2026-01-03T20:32:13.274114",
+  "title": "Tell a Joke",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Tell me a joke"
+    }
+  ]
+}

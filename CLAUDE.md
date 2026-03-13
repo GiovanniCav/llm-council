@@ -1,6 +1,13 @@
 # CLAUDE.md - Technical Notes for LLM Council
 
-This file contains technical details, architectural decisions, and important implementation notes for future development sessions.
+## Overarching Workspace Rules (Obsidian Integration)
+Before working on any project-specific details, Claude must adhere to these global Antigravity Projects rules:
+1. **Context Control:** Always operate with the project folder open as an Obsidian Vault (or Co-work folder) to maintain strict, manual control over visible context.
+2. **Session Logs:** At the end of every significant work sprint, generate a "Session Log" detailing actions taken, decisions made, and next steps. Store this in the active project directory to prevent memory compaction loss.
+3. **Process Files:** Use markdown "Process Files" for repetitive workflows instead of relying on memory. Execute step-by-step instructions exactly as written.
+4. **Folder Structure:** Respect the defined deep folder hierarchy (e.g., `00_INBOX`, `scripts`, `library`).
+
+---
 
 ## Project Overview
 

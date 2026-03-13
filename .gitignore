@@ -1,21 +1,29 @@
-# Python-generated files
+# macOS
+.DS_Store
+
+# Python
+.venv/
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+*.pyc
+venv/
 
-# Virtual environments
-.venv
-
-# Keys and secrets
+# Environment
 .env
 
-# Data files
-data/
+# Logs & States
+*.log
+logs/
+status.json
 
-# Frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
+# Local configurations
+.cursor/
+.agent/config/
+.open-webui-data/
+
+# Inbox & Resources
+00_INBOX/
+03_Resources/
+04_Archive/
+
+# Brain
+brain/

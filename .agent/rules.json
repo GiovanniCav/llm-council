@@ -1,0 +1,12 @@
+{
+  "entity_guidelines": [
+    "Identity: LLM Council",
+    "Classification: OWNED",
+    "Workspace Type: ENGINE",
+    "Status: Active",
+    "NotebookLM ID: d248f4e9-eb1a-4457-baf6-23b41c7d5422 (LLM Council)"
+  ],
+  "_checksums": {
+    "IDENTITY.md": "ea582b454c053578a595cbca2a7f20d9583a6b721936b8c297ae4262ee9e2936"
+  }
+}

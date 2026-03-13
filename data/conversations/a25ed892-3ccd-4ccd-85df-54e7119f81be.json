@@ -1,0 +1,11 @@
+{
+  "id": "a25ed892-3ccd-4ccd-85df-54e7119f81be",
+  "created_at": "2026-01-03T20:21:01.403639",
+  "title": "Basic Math Question",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is 2+2?"
+    }
+  ]
+}
