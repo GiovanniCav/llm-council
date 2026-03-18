@@ -27,3 +27,7 @@ status.json
 
 # Brain
 brain/
+
+# Audio / Transcripts
+transcription_stats.json
+02_Areas/transcripts/downloads/
