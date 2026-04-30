@@ -31,3 +31,20 @@ brain/
 # Audio / Transcripts
 transcription_stats.json
 02_Areas/transcripts/downloads/
+
+# === Large media (auto-added by backup postmortem) ===
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.wav
+*.zip
+*.tar.gz
+*.rar
+*.dmg
+*.iso
+
