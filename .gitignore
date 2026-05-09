@@ -23,7 +23,7 @@ status.json
 # Inbox & Resources
 00_INBOX/
 03_Resources/
-04_Archive/
+99_Archive/
 
 # Brain
 brain/
@@ -48,3 +48,4 @@ transcription_stats.json
 *.dmg
 *.iso
 
+scratch/
