@@ -49,3 +49,6 @@ transcription_stats.json
 *.iso
 
 scratch/
+
+# Local secrets
+.secrets/
