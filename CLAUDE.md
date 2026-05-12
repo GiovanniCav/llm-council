@@ -1,5 +1,31 @@
 # CLAUDE.md - Technical Notes for LLM Council
 
+> **Last governance update:** 2026-05-11
+
+---
+
+## Rule Hierarchy (Conflict Resolution)
+
+When two files disagree, the higher-ranked file wins. Read in this order at session start:
+
+1. **Root `/Antigravity Projects/CLAUDE.md`** — global workspace rules. Overrides everything below.
+2. **Root `/Antigravity Projects/.agent/rules/*.md`** — atomic global writing rules (humanize, no-dash, slack-formatting, investment-frame, name-spelling, content-pack-labeling).
+3. **Root `/Antigravity Projects/.agent/governance/universal_guardrails.md`** — patterns that apply across all workspaces.
+4. **This file** (`CLAUDE.md`) — workspace-specific rules. Adds constraints. Does not weaken layers above.
+5. **`IDENTITY.md`** — workspace classification, NLM instance.
+6. **`.agent/rules/*.md`** — local atomic rules (copies of root rules plus any workspace-specific additions).
+7. **`.agent/governance/governance_reference.md`** — points to root governance layer.
+8. **`.agent/skills/`** — available skill packs.
+
+---
+
+## NEVER-BREAK Rules
+
+### 1. ZERO URL HALLUCINATION
+Never guess a URL. If the exact link is unknown, use `[INSERT LINK]`.
+
+---
+
 ## Overarching Workspace Rules (Obsidian Integration)
 Before working on any project-specific details, Claude must adhere to these global Antigravity Projects rules:
 1. **Context Control:** Always operate with the project folder open as an Obsidian Vault (or Co-work folder) to maintain strict, manual control over visible context.
@@ -172,3 +198,19 @@ Frontend: Display with tabs + validation UI
 ```
 
 The entire flow is async/parallel where possible to minimize latency.
+
+---
+
+## Wiki & Memory Policy
+
+This workspace follows the Infinite Brain Architecture.
+See `.agent/skills/infinite-brain-architecture/SKILL.md` for the canonical SOP.
+
+| Layer | Path | Purpose |
+|-------|------|---------|
+| Layer 0 | `CLAUDE.md`, `.agent/rules/` | Live governance (this file + atomic rules) |
+| Layer 1 | `05_Raw_Archive/` | Unprocessed source transcripts, exports, uploads |
+| Layer 2 | `04_Wiki/` | Atomic notes — one concept per file, wikilinked |
+| Layer 3 | NotebookLM | Queryable AI memory (see `custom-rag-database` skill) |
+
+Governance reference: `.agent/governance/governance_reference.md`
